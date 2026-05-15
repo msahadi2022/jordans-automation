@@ -1,0 +1,31 @@
+{
+  "fabric": {
+    "endpoint": "h6iki2vuvsmulo2pxnbmbd5xuq-qaya6ajhjclezlpx7lhfvnqrpq.datawarehouse.fabric.microsoft.com",
+    "database": "Gold",
+    "tenant_id": "6aa4903f-acb4-4599-bb4f-bb42c08fb7a4",
+    "auth_mode": "device_code"
+  },
+  "jordan_customers": ["0010033", "0010174", "0005505"],
+  "qualifying_batches": ["WH ORDER REVIEW", "WH NEW ORDER"],
+  "threshold": {
+    "volume_cf": 2200
+  },
+  "schedule": {
+    "interval_days": 14,
+    "skip_window_after_threshold_days": 3
+  },
+  "inbound": {
+    "no_response_window_days": 2,
+    "jordan_reply_addresses": ["bchartier@jordans.com", "traffic@jordans.com"]
+  },
+  "email": {
+    "to": "traffic@jordans.com",
+    "cc": ["bchartier@jordans.com", "rszewczyk@maxwoodfurniture.com"],
+    "from": "TBD",
+    "internal_notify": ["hcollins@maxwoodfurniture.com", "rszewczyk@maxwoodfurniture.com"]
+  },
+  "paths": {
+    "state_file": "state.json",
+    "log_file": "jordan_automation.log"
+  }
+}

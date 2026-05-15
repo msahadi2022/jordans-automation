@@ -2,7 +2,7 @@
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
@@ -23,6 +23,8 @@ Not Started
 - Auth must support swapping Device Code → ClientSecretCredential via config flag without changing core logic
 - This is `fabric_client.py` — the foundation all other modules depend on; build and test this first
 - Full spec detail in `context/features/task-01-fabric-connection.md`
+- **Live test fix (May 15):** JOIN key was wrong — `Item_Number_Reference` is zero-padded GP format (`000710735152`), must join on `w.itemNumber` not `w.shortItemnumber` (dash-formatted SKU)
+- **Live test fix (May 15):** Non-inventory lines (`NOTES`, `1010`, `TARIFF`, `FREIGHT`) must be excluded from WHERE clause
 
 ## History
 

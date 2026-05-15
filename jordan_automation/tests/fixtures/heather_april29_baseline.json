@@ -1,0 +1,8 @@
+{
+  "_note": "Baseline from Heather Collins manual report, April 29 2026. Used to validate volume_calculator totals.",
+  "expected_totals": {
+    "total_volume_cf": 2039.0,
+    "total_weight_lbs": 16112.0,
+    "total_cartons": 339
+  }
+}
