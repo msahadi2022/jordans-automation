@@ -1,31 +1,24 @@
-# Current Feature: Fabric Connection & Data Pipeline Setup
+# Current Feature
+
+<!-- Feature Name -->
 
 ## Status
 
-In Progress
+<!-- Not Started|In Progress|Completed -->
+
+Not Started
 
 ## Goals
 
-- Connect to Microsoft Fabric Gold via ODBC Driver 18 for SQL Server
-- Authenticate using `azure-identity` (Device Code flow for dev; Service Principal for prod — switchable via config flag)
-- Execute the Jordan orders SQL query joining `SALESDOC_HEADER`, `SALESDOC_DETAIL`, and `WDS_Items_Current`
-- Validate results — detect and log missing SKUs, null volumes, and null weights
-- All configurable values (endpoint, tenant ID, customer numbers, batch values) read from `config.json` — nothing hardcoded
-- Every run produces a structured JSON log entry
-- Retry connection once after 60 seconds on failure, then send admin alert
+<!-- Goals & requirements -->
 
 ## Notes
 
-- Virtual environment: `~/fabric-env` — `pyodbc`, `azure-identity`, `requests` already installed
-- ODBC Driver 18 for SQL Server (`msodbcsql18`) already installed on machine
-- Fabric endpoint and tenant ID confirmed working from research phase
-- Connection uses Azure AD token injection via `attrs_before={1256: token_struct}`
-- Auth must support swapping Device Code → ClientSecretCredential via config flag without changing core logic
-- This is `fabric_client.py` — the foundation all other modules depend on; build and test this first
-- Full spec detail in `context/features/task-01-fabric-connection.md`
-- **Live test fix (May 15):** JOIN key was wrong — `Item_Number_Reference` is zero-padded GP format (`000710735152`), must join on `w.itemNumber` not `w.shortItemnumber` (dash-formatted SKU)
-- **Live test fix (May 15):** Non-inventory lines (`NOTES`, `1010`, `TARIFF`, `FREIGHT`) must be excluded from WHERE clause
+<!-- Any extra notes -->
 
 ## History
 
+<!-- Keep this updated. Earliest to latest -->
+
 - Project setup and boilerplate cleanup
+- Fabric Connection & Data Pipeline Setup (task-01): ODBC + Azure AD auth, Jordan orders SQL query, result validation, missing SKU detection, structured JSON run logging
