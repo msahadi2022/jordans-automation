@@ -10,6 +10,8 @@ import time
 from datetime import datetime, timezone
 import pyodbc
 from azure.identity import ClientSecretCredential, DeviceCodeCredential
+from dotenv import load_dotenv
+load_dotenv()
 
 FABRIC_TOKEN_SCOPE = "https://database.windows.net/.default"
 ODBC_DRIVER = "ODBC Driver 18 for SQL Server"
