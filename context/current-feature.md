@@ -1,20 +1,29 @@
-# Current Feature
-
-<!-- Feature Name -->
+# Current Feature: Bi-Weekly Scheduled Send
 
 ## Status
 
-<!-- Not Started|In Progress|Completed -->
-
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Goals & requirements -->
+- Check if 14 days have passed since `last_scheduled_send` (from `state.json`)
+- Skip if a threshold email was sent within the last 3 days
+- Skip if no open Jordan orders exist
+- Call `email_sender.send_report()` with `mode="scheduled"` when conditions are met
+- Update `state.json` after each scheduled send
+- All timing values (interval_days, skip_window_after_threshold_days) read from `config.json`
+- Log every schedule check with result and reason
 
 ## Notes
 
-<!-- Any extra notes -->
+- Runs as part of daily 5:00 AM execution — not a separate process
+- Cadence is interval-based (days since last send), not day-of-week — simpler and easier to change
+- Preferred send day (Wednesday) TBD pending Heather's confirmation
+- Missing/corrupt `state.json` → treat all timestamps as null, log warning, continue
+- All timestamps compared in UTC
+- Skip window prevents Beverly receiving two emails in close succession — keep configurable
+- Output: `jordan_automation/scheduler.py`
+- Full spec: `context/features/task-04-biweekly-schedule.md`
 
 ## History
 
