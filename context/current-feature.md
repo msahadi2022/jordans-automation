@@ -21,3 +21,4 @@ Not Started
 - Main Orchestration (task-06): main.py entry point wiring all five modules, full pipeline with retry, non-fatal inbox/state-write guards, top-level exception handler, structured run summary
 - Testing (task-07): pytest suite covering all five modules — 71 tests, no live network calls, mocked Graph API and Fabric
 - VOIDSTTS Filter Fix (task-08): added AND h.VOIDSTTS = 0 to JORDAN_ORDERS_SQL and MISSING_SKUS_SQL to exclude voided/cancelled orders that retain their Batch value in SalesPad
+- Posted_Date Filter Fix (task-08 followup): added AND h.Posted_Date = '1900-01-01' to both SQL queries to exclude old partially-shipped orders that were already invoiced but never voided; GP uses 1900-01-01 as null sentinel for unposted orders
