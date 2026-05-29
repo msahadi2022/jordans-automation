@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 
 import requests
 from azure.identity import ClientSecretCredential, DeviceCodeCredential
+from dotenv import load_dotenv
 
 GRAPH_TOKEN_SCOPE = "https://graph.microsoft.com/.default"
 GRAPH_SEND_URL = "https://graph.microsoft.com/v1.0/users/{from_address}/sendMail"
