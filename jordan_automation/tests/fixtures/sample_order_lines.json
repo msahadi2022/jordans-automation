@@ -1,0 +1,28 @@
+[
+  {
+    "sales_doc_num": "WH00121966",
+    "cust_po_num": "MAXWC0309600B",
+    "short_description": "710705-152",
+    "item_description": "Bed Side Rails incl. Support Bar (Full)",
+    "qty": 4.0,
+    "volume_cf_per_unit": 1.30,
+    "line_volume_cf": 5.20,
+    "weight_per_unit": 2.10,
+    "line_weight_lbs": 8.40,
+    "cartons_per_unit": 1,
+    "line_cartons": 4
+  },
+  {
+    "sales_doc_num": "WH00121967",
+    "cust_po_num": "MAXWC0309601A",
+    "short_description": "710331-131",
+    "item_description": "Full Slat HeadBoard & FootPanel incl. Slat Roll",
+    "qty": 1.0,
+    "volume_cf_per_unit": 11.90,
+    "line_volume_cf": 11.90,
+    "weight_per_unit": 85.0,
+    "line_weight_lbs": 85.0,
+    "cartons_per_unit": 1,
+    "line_cartons": 1
+  }
+]
