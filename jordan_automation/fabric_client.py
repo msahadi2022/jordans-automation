@@ -39,6 +39,7 @@ JORDAN_ORDERS_SQL = """
     AND   h.Document_Type = 2
     AND   h.Batch IN ({batches})
     AND   h.VOIDSTTS = 0
+    AND   h.Posted_Date = '1900-01-01'
     AND   d.Item_Number_Reference NOT IN ('NOTES', '1010', 'TARIFF', 'FREIGHT')
     ORDER BY h.Document_Number, d.Line_Item_Sequence
 """
@@ -51,6 +52,7 @@ MISSING_SKUS_SQL = """
     AND   h.Document_Type = 2
     AND   h.Batch IN ({batches})
     AND   h.VOIDSTTS = 0
+    AND   h.Posted_Date = '1900-01-01'
     AND   d.Item_Number_Reference NOT IN ('NOTES', '1010', 'TARIFF', 'FREIGHT')
     AND   d.Item_Number_Reference NOT IN (
         SELECT itemNumber FROM dbo.WDS_Items_Current

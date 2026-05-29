@@ -20,7 +20,8 @@
   },
   "email": {
     "to": "michael@michaelsahadi.com",
-    "from": "msahadi@maxwoodfurniture.com",
+    "cc": ["hcollins@maxwoodfurniture.com"],
+    "from": "orders@maxwoodfurniture.com",
     "internal_notify": ["hcollins@maxwoodfurniture.com", "rszewczyk@maxwoodfurniture.com"]
   },
   "paths": {
