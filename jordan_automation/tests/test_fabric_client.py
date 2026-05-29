@@ -77,6 +77,10 @@ class TestBuildSql:
         assert "'WH ORDER REVIEW'" in sql
         assert "'WH NEW ORDER'" in sql
 
+    def test_excludes_voided_orders(self, config):
+        sql = _build_sql(config)
+        assert "VOIDSTTS = 0" in sql
+
     def test_returns_string(self, config):
         sql = _build_sql(config)
         assert isinstance(sql, str)
