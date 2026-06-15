@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 FABRIC_TOKEN_SCOPE = "https://database.windows.net/.default"
-ODBC_DRIVER = "ODBC Driver 18 for SQL Server"
+ODBC_DRIVER = os.environ.get("ODBC_DRIVER_NAME", "ODBC Driver 18 for SQL Server")
 ODBC_PORT = 1433
 
 JORDAN_ORDERS_SQL = """

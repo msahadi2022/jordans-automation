@@ -1,16 +1,21 @@
-# Current Feature
+# Current Feature — Configurable ODBC Driver Name (task-Config)
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `ODBC_DRIVER` constant in `fabric_client.py` reads from `ODBC_DRIVER_NAME` env var, defaulting to `"ODBC Driver 18 for SQL Server"`
+- `.env.example` documents the optional override
+- No other logic in `fabric_client.py` changed
+- All existing pytest tests pass
 
 ## Notes
 
-<!-- Add notes here -->
+- Azure Functions Python 3.10 Linux Consumption ships ODBC Driver 17 pre-installed; 3.11 ships nothing (requires custom Docker)
+- Switching to 3.10 + ODBC 17 avoids the custom Docker image requirement
+- No auth logic changes needed — ODBC 17 supports the same `attrs_before={1256: token_struct}` pattern
 
 ## History
 
