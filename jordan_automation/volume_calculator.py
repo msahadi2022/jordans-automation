@@ -7,7 +7,12 @@ import logging
 import os
 from datetime import datetime, timezone
 
+from azure.storage.blob import BlobServiceClient
+
 DEFAULT_THRESHOLD_CF = 2200
+
+_BLOB_CONTAINER = "jordan-automation-state"
+_BLOB_NAME = "state.json"
 
 _STATE_DEFAULTS = {
     "last_threshold_send": None,
@@ -53,6 +58,52 @@ def write_state(state: dict, path: str) -> None:
     with open(tmp_path, "w") as f:
         json.dump(state, f, indent=2, default=str)
     os.replace(tmp_path, path)
+
+
+def load_state_from_blob() -> dict:
+    """
+    Load state from Azure Blob Storage if AZURE_STORAGE_CONNECTION_STRING is set.
+
+    Falls back to local state.json when the env var is absent. Returns a dict
+    merged with _STATE_DEFAULTS so all expected keys are always present.
+    """
+    conn_str = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+    if not conn_str:
+        logging.info("AZURE_STORAGE_CONNECTION_STRING not set — using local state file.")
+        return load_state("state.json")
+
+    try:
+        client = BlobServiceClient.from_connection_string(conn_str)
+        blob = client.get_blob_client(_BLOB_CONTAINER, _BLOB_NAME)
+        data = blob.download_blob().readall()
+        loaded = json.loads(data)
+        return {**_STATE_DEFAULTS, **loaded}
+    except Exception as e:
+        logging.warning(f"Could not load state from blob ({e}). Using defaults.")
+        return dict(_STATE_DEFAULTS)
+
+
+def write_state_to_blob(state: dict) -> None:
+    """
+    Write state to Azure Blob Storage if AZURE_STORAGE_CONNECTION_STRING is set.
+
+    Falls back to local state.json when the env var is absent. Raises on blob
+    write failure (mirrors write_state() which also raises on I/O error).
+    """
+    conn_str = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+    if not conn_str:
+        logging.info("AZURE_STORAGE_CONNECTION_STRING not set — writing to local state file.")
+        write_state(state, "state.json")
+        return
+
+    try:
+        client = BlobServiceClient.from_connection_string(conn_str)
+        blob = client.get_blob_client(_BLOB_CONTAINER, _BLOB_NAME)
+        blob.upload_blob(json.dumps(state, indent=2, default=str), overwrite=True)
+        logging.info("State written to Azure Blob Storage.")
+    except Exception as e:
+        logging.error(f"Could not write state to blob: {e}")
+        raise
 
 
 def aggregate_totals(order_lines: list[dict]) -> dict:

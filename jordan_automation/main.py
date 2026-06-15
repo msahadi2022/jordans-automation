@@ -31,17 +31,22 @@ from inbox_monitor import (
     should_send_reminder,
 )
 from scheduler import is_scheduled_send_due, record_scheduled_send
-from volume_calculator import evaluate, load_state, record_threshold_send, write_state
+from volume_calculator import (
+    evaluate,
+    load_state_from_blob,
+    record_threshold_send,
+    write_state_to_blob,
+)
 
 load_dotenv()
 
 
 def _safe_write_state(state: dict, config: dict) -> None:
-    """Write state to disk, logging a warning on failure rather than crashing."""
+    """Write state (blob or local), logging a warning on failure rather than crashing."""
     try:
-        write_state(state, config["paths"]["state_file"])
+        write_state_to_blob(state)
     except Exception as e:
-        logging.warning(f"State file write failed: {e}")
+        logging.warning(f"State write failed: {e}")
 
 
 def run() -> None:
@@ -67,7 +72,7 @@ def run() -> None:
     setup_logging(config["paths"]["log_file"])
     logging.info("=== Jordan automation run started ===")
 
-    state = load_state(config["paths"]["state_file"])
+    state = load_state_from_blob()
 
     # --- 2. Fabric connection ---
     try:
