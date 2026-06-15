@@ -1,21 +1,16 @@
-# Current Feature — Configurable ODBC Driver Name (task-Config)
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `ODBC_DRIVER` constant in `fabric_client.py` reads from `ODBC_DRIVER_NAME` env var, defaulting to `"ODBC Driver 18 for SQL Server"`
-- `.env.example` documents the optional override
-- No other logic in `fabric_client.py` changed
-- All existing pytest tests pass
+<!-- Add goals here -->
 
 ## Notes
 
-- Azure Functions Python 3.10 Linux Consumption ships ODBC Driver 17 pre-installed; 3.11 ships nothing (requires custom Docker)
-- Switching to 3.10 + ODBC 17 avoids the custom Docker image requirement
-- No auth logic changes needed — ODBC 17 supports the same `attrs_before={1256: token_struct}` pattern
+<!-- Add notes here -->
 
 ## History
 
@@ -34,3 +29,4 @@ In Progress
 - Azure Functions Restructure (task-Restructure): added host.json, daily_trigger/__init__.py, daily_trigger/function.json (timer cron 0 0 10 * * *), and azure-functions + azure-storage-blob to requirements.txt; main.py required no changes
 - Azure Blob State Migration (task-Migrate): added load_state_from_blob() and write_state_to_blob() to volume_calculator.py; main.py updated to use blob-backed functions; falls back to local state.json when AZURE_STORAGE_CONNECTION_STRING is unset
 - Custom Docker Image with ODBC Driver (task-Custom-docker): Dockerfile based on mcr.microsoft.com/azure-functions/python:4-python3.11, installs msodbcsql18 via Microsoft apt repo, copies app code to /home/site/wwwroot, installs pip dependencies; .dockerignore excludes .env, state.json, tests, logs, and local venv
+- Configurable ODBC Driver Name (task-Config): ODBC_DRIVER constant in fabric_client.py now reads from ODBC_DRIVER_NAME env var (defaults to ODBC Driver 18); .env.example created documenting the optional override for Azure Functions Python 3.10 deployment (ODBC Driver 17 pre-installed)
