@@ -6,7 +6,11 @@ Not Started
 
 ## Goals
 
+<!-- Add goals here -->
+
 ## Notes
+
+<!-- Add notes here -->
 
 ## History
 
@@ -24,3 +28,4 @@ Not Started
 - Posted_Date Filter Fix (task-08 followup): added AND h.Posted_Date = '1900-01-01' to both SQL queries to exclude old partially-shipped orders that were already invoiced but never voided; GP uses 1900-01-01 as null sentinel for unposted orders
 - Azure Functions Restructure (task-Restructure): added host.json, daily_trigger/__init__.py, daily_trigger/function.json (timer cron 0 0 10 * * *), and azure-functions + azure-storage-blob to requirements.txt; main.py required no changes
 - Azure Blob State Migration (task-Migrate): added load_state_from_blob() and write_state_to_blob() to volume_calculator.py; main.py updated to use blob-backed functions; falls back to local state.json when AZURE_STORAGE_CONNECTION_STRING is unset
+- Custom Docker Image with ODBC Driver (task-Custom-docker): Dockerfile based on mcr.microsoft.com/azure-functions/python:4-python3.11, installs msodbcsql18 via Microsoft apt repo, copies app code to /home/site/wwwroot, installs pip dependencies; .dockerignore excludes .env, state.json, tests, logs, and local venv
